@@ -6,7 +6,7 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 15:41:29 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/25 17:37:03 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:37:49 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void*    philo_act(void *argv)
 {
 	t_data	*data;
-	
+
 	data = argv;
 	if (data->philo_id % 2 == 1 && data->act.sleeping == 0)
 	{	
