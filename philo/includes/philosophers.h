@@ -6,7 +6,7 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:36:21 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/25 16:21:37 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:33:04 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,11 @@ typedef struct s_data {
 
 /* ft_atoi.c */
 long	ft_atoi(const char *str);
+
+/* error.c */
+void	ft_error(char *error_message);
+
+/* philo_act.c */
+void*    philo_act(void *argv);
 
 #endif

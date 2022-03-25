@@ -6,13 +6,13 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:32:19 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/25 16:21:37 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:36:31 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-include "../includes/philosphers.h"
+#include "../includes/philosophers.h"
 
-void	data_init(char **argv, t_data data)
+void	data_init(char **argv, t_data *data)
 {
 	data->philo_id = 0;
 	data->num_of_philo = ft_atoi(argv[1]);
@@ -23,10 +23,6 @@ void	data_init(char **argv, t_data data)
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		data->num_of_must_eat = ft_atoi(argv[5]);
-	if (0 > (data->num_of_philo || data->num_of_forks || data->time_to_die
-			|| data->time_to_eat || data->time_to_sleep
-			|| data->num_of_must_eat))
-		ft_error("argv is minus");
 	data->act.left_hand = 0;
 	data->act.right_hand = 0;
 	data->act.eating = 0;
@@ -34,7 +30,7 @@ void	data_init(char **argv, t_data data)
 	data->act.thinking = 0;
 }
 
-void	start_thread(t_data data)
+void	start_thread(t_data *data)
 {
 	pthread_t	thread;
 	void		*retval;
@@ -56,7 +52,7 @@ int	main(int argc, char **argv)
 	t_data			data;
 	pthread_mutex_t	mutex;
 
-	if (argc != (4 || 5))
+	if (argc != 5 && argc != 6)
 		ft_error("argc is invalid");
 	pthread_mutex_init(&mutex, NULL);
 	data_init(argv, &data);

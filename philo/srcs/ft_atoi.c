@@ -6,11 +6,11 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 21:36:23 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/25 14:35:43 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:10:15 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/philosophers.h"
 
 long	ft_atoi(const char *str)
 {
@@ -23,7 +23,7 @@ long	ft_atoi(const char *str)
 			|| *str == '\v' || *str == '\f' || *str == '\r'))
 		++str;
 	if (*str == '-')
-		minus = -1;
+		ft_error("argv is minus");
 	if (*str == '-' || *str == '+')
 		++str;
 	while (*str && *str >= '0' && *str <= '9')
