@@ -6,7 +6,7 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:32:19 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/21 16:45:40 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/25 16:21:37 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,53 @@ include "../includes/philosphers.h"
 
 void	data_init(char **argv, t_data data)
 {
-	num_of_philo;
-	num_of_forks;
-	time_to_die;
-	time_to_eat;
-	time_to_sleep;
-	num_of_must_eat;
+	data->philo_id = 0;
+	data->num_of_philo = ft_atoi(argv[1]);
+	data->num_of_philo = ft_atoi(argv[1]);
+	data->num_of_forks = ft_atoi(argv[1]);
+	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
+	if (argv[5])
+		data->num_of_must_eat = ft_atoi(argv[5]);
+	if (0 > (data->num_of_philo || data->num_of_forks || data->time_to_die
+			|| data->time_to_eat || data->time_to_sleep
+			|| data->num_of_must_eat))
+		ft_error("argv is minus");
+	data->act.left_hand = 0;
+	data->act.right_hand = 0;
+	data->act.eating = 0;
+	data->act.sleeping = 0;
+	data->act.thinking = 0;
 }
 
-int	philosphers(int argc, char **argv)
+void	start_thread(t_data data)
 {
-	t_data	data;
+	pthread_t	thread;
+	void		*retval;
+	int			philo_n;
+
+	philo_n = 0;
+	while (philo_n < data->num_of_philo)
+	{
+		data->philo_id = philo_n;
+		if (pthread_create(&thread, NULL, philo_act, data) != 0)
+			ft_error("pthread_create is failed");
+		philo_n++;
+	}
+	pthread_join(thread, &retval);
+}
+
+int	main(int argc, char **argv)
+{
+	t_data			data;
+	pthread_mutex_t	mutex;
 
 	if (argc != (4 || 5))
 		ft_error("argc is invalid");
+	pthread_mutex_init(&mutex, NULL);
 	data_init(argv, &data);
+	start_thread(&data);
+	pthread_mutex_destroy(&mutex);
 	return (0);
 }
