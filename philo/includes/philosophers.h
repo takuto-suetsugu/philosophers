@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:36:21 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/25 17:33:04 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/26 20:13:09 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@
 # include   <errno.h>
 # include   <fcntl.h>
 # include	<pthread.h>
+# include <string.h>
+
 
 typedef struct s_act {
+	int	philo_id;
 	int	left_hand;
 	int	right_hand;
 	int	eating;
@@ -28,7 +31,6 @@ typedef struct s_act {
 	int	thinking;
 }				t_act;
 typedef struct s_data {
-	int			philo_id;
 	int			num_of_philo;
 	int			num_of_forks;
 	int			time_to_die;
@@ -36,7 +38,7 @@ typedef struct s_data {
 	int			time_to_sleep;
 	int			num_of_must_eat;
 	int			finish;
-	t_act	act;
+	t_act		*act;
 }				t_data;
 
 /* ft_atoi.c */
