@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:36:21 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/26 20:13:09 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/27 10:42:35 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ long	ft_atoi(const char *str);
 void	ft_error(char *error_message);
 
 /* philo_act.c */
-void*    philo_act(void *argv);
+void	*philo_act(void *argv);
+
+/* data_init.c */
+void	data_init(int argc, char **argv, t_data *data);
+
 
 #endif
