@@ -6,7 +6,7 @@
 #    By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/25 16:54:54 by tsuetsug          #+#    #+#              #
-#    Updated: 2022/03/27 10:41:15 by tsuetsug         ###   ########.fr        #
+#    Updated: 2022/03/27 12:18:11 by tsuetsug         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ OFF		= \033[0m
 NAME	= philo
 
 SRCS	= srcs/error.c srcs/ft_atoi.c srcs/philo_act.c srcs/philosophers.c \
-			srcs/data_init.c
+			srcs/data_init.c srcs/get_time.c
 
 OBJ		= *.o
 

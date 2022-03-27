@@ -6,7 +6,7 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:34:02 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/27 11:04:55 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/27 13:05:02 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	init_act(t_data *data)
 	i = 0;
 	while (i < data->num_of_philo)
 	{
+		data->act[i].data = data;
 		data->act[i].left_hand = 0;
 		data->act[i].right_hand = 0;
 		data->act[i].eating = 0;

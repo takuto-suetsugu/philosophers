@@ -6,7 +6,7 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:32:19 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/27 11:07:40 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/27 13:07:39 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ void	start_thread(t_data *data, t_act *act)
 	pthread_t	thread;
 	int			i;
 
+	data->start_time = get_ll_time();
 	i = 0;
 	while (i < data->num_of_philo)
 	{
-		act[i].philo_id = i;
+		act[i].philo_id = i + 1;
 		if (pthread_create(&thread, NULL, philo_act,
 				(void *)&(act[i])) != 0)
 			ft_error("pthread_create is failed");
