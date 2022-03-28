@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:36:21 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/28 16:03:07 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/28 22:06:45 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 
 typedef struct s_act {
 	int				philo_id;
-	int				initial_status;
 	int				left_hand;
 	int				right_hand;
 	int				eating;

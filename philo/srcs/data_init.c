@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:34:02 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/28 16:06:20 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/28 22:06:40 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	init_data(int argc, char **argv, t_data *data)
 		data->num_of_must_eat = ft_atoi(argv[5]);
 	else
 		data->num_of_must_eat = 0;
+	data->forks = malloc(sizeof(data->forks) * data->num_of_philo);
+	if (data->forks == NULL)
+		ft_error("forks is not allocated");
 	i = 0;
 	while (i < data->num_of_forks)
 	{
@@ -60,7 +63,7 @@ void	init_act(t_data *data)
 	while (i < data->num_of_philo)
 	{
 		data->act[i].data = data;
-		data->act[i].initial_status = 1;
+		data->act[i].philo_id = i + 1;
 		data->act[i].left_hand = 0;
 		data->act[i].right_hand = 0;
 		data->act[i].eating = 0;

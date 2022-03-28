@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:32:19 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/28 16:07:09 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/28 19:19:04 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	start_thread(t_data *data, t_act *act)
 	i = 0;
 	while (i < data->num_of_philo)
 	{
-		act[i].philo_id = i + 1;
 		if (pthread_create(&thread, NULL, philo_act,
 				(void *)&(act[i])) != 0)
 			ft_error("pthread_create is failed");
