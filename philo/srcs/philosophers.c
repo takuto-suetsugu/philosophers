@@ -6,7 +6,7 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:32:19 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/27 13:07:39 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/28 15:32:39 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	start_thread(t_data *data, t_act *act)
 	pthread_t	thread;
 	int			i;
 
-	data->start_time = get_ll_time();
+	data->start_time = get_ms();
 	i = 0;
 	while (i < data->num_of_philo)
 	{
@@ -36,6 +36,8 @@ int	main(int argc, char **argv)
 
 	if (argc != 5 && argc != 6)
 		ft_error("argc is invalid");
+	if (argv[5] && argv[5] == 0)
+		return (0);
 	data_init(argc, argv, &data);
 	start_thread(&data, (&data)->act);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:36:21 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/27 12:59:54 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/28 15:16:30 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 # include 	<string.h>
 # include 	<sys/time.h>
 
-
 typedef struct s_act {
 	int				philo_id;
+	int				initial_status;
 	int				left_hand;
 	int				right_hand;
 	int				eating;
+	int				eating_count;
 	int				sleeping;
 	int				thinking;
 	struct s_data	*data;
@@ -55,6 +56,6 @@ void	*philo_act(void *argv);
 void	data_init(int argc, char **argv, t_data *data);
 
 /* get_time.c */
-long long	get_ll_time(void);
+long long	get_ms(void);
 
 #endif

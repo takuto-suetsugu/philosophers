@@ -6,13 +6,13 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 12:17:41 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/27 12:17:55 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/28 14:19:22 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-long long	get_ll_time(void)
+long long	get_ms(void)
 {
 	struct timeval	time;
 	long long		ll_time;
