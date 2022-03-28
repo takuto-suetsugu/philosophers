@@ -6,7 +6,7 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 15:41:29 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/28 15:34:00 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:13:35 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,25 @@ void	philo_sleep(t_act *act, t_data *data)
 	act->sleeping = 1;
 }
 
-void	philo_eat(t_act *act, t_data *data)
+void	philo_eat(t_act *act, t_data *data, int id)
 {
 	printf("%lld %d is eating\n", get_ms(), act->philo_id);
 	act_specified_time(data->time_to_eat);
 	act->eating = 1;
 	act->eating_count++;
+    pthread_mutex_unlock(&(data->forks[id - 1]));
+    pthread_mutex_unlock(&(data->forks[id]));
 }
 
 void*    philo_act(void *act_addr)
 {
 	t_act	*act;
 	t_data	*data;
+	int		id;
 
 	act = act_addr;
 	data = act->data;
+	id = act->philo_id;
 	if (act->philo_id % 2 == 1)
 		usleep(200);
 	printf("%lld %d has taken a fork\n", get_ms(), act->philo_id);
@@ -61,19 +65,21 @@ void*    philo_act(void *act_addr)
 	{
 		if (act->thinking == 1)
 		{
+			pthread_mutex_lock(&(data->forks[id - 1]));
+			printf("%lld %d has taken a fork\n", get_ms(), act->philo_id);
+			act->right_hand = 1;
+		}
+		else if (act->right_hand == 1 && act->left_hand == 0)
+		{
+			pthread_mutex_lock(&(data->forks[id]));
 			printf("%lld %d has taken a fork\n", get_ms(), act->philo_id);
 			act->left_hand = 1;
 			act->thinking = 0;
 		}
-		else if (act->left_hand == 1 && act->right_hand == 0)
-		{
-			printf("%lld %d has taken a fork\n", get_ms(), act->philo_id);
-			act->right_hand = 1;
-		}
-		else if (act->left_hand == 1 && act->right_hand == 1
+		else if (act->right_hand == 1 && act->left_hand == 1
 			&& act->eating == 0)
 		{
-			philo_eat(act, data);
+			philo_eat(act, data, id);
 			if (act->eating_count == data->num_of_must_eat
 				&& data->num_of_must_eat > 0)
 				return (NULL);

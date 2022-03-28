@@ -6,7 +6,7 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:36:21 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/28 15:16:30 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:03:07 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ typedef struct s_act {
 	struct s_data	*data;
 }				t_act;
 typedef struct s_data {
-	int			num_of_philo;
-	int			num_of_forks;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			num_of_must_eat;
-	long long	start_time;
-	int			finish;
-	t_act		*act;
+	int				num_of_philo;
+	int				num_of_forks;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				num_of_must_eat;
+	long long		start_time;
+	pthread_mutex_t	*forks;
+	t_act			*act;
 }				t_data;
 
 /* ft_atoi.c */
