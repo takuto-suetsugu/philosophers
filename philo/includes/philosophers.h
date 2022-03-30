@@ -6,7 +6,7 @@
 /*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:36:21 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/28 22:06:45 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/30 10:52:45 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,30 @@
 
 typedef struct s_act {
 	int				philo_id;
-	int				left_hand;
-	int				right_hand;
+	int				hand_full;
 	int				eating;
 	int				eating_count;
 	int				sleeping;
 	int				thinking;
 	struct s_data	*data;
+	pthread_t		thread;
 }				t_act;
 typedef struct s_data {
-	int				num_of_philo;
-	int				num_of_forks;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				num_of_must_eat;
+	long			num_of_philo;
+	long			num_of_forks;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			num_of_must_eat;
 	long long		start_time;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	write;
 	t_act			*act;
 }				t_data;
 
-/* ft_atoi.c */
+/* philo_utils.c */
 long	ft_atoi(const char *str);
+void    mutex_printf(int id, char *action, t_data *data);
 
 /* error.c */
 void	ft_error(char *error_message);

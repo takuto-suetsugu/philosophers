@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/30 21:36:23 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/25 17:10:15 by tsuetsug         ###   ########.fr       */
+/*   Created: 2022/03/29 14:46:41 by tsuetsug          #+#    #+#             */
+/*   Updated: 2022/03/30 10:03:19 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,11 @@ long	ft_atoi(const char *str)
 		++str;
 	}
 	return (res * minus);
+}
+
+void    mutex_printf(int id, char *action, t_data *data)
+{
+	pthread_mutex_lock(&(data->write));
+	printf("%lld %d %s\n", get_ms(), id, action);
+	pthread_mutex_unlock(&(data->write));
 }

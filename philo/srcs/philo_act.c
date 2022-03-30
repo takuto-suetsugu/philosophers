@@ -6,7 +6,7 @@
 /*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 15:41:29 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/28 22:22:54 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/30 10:45:42 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,82 +24,81 @@ void	act_specified_time(int time_to_act)
 	while (act_time > current_time - start_time)
 	{
 		current_time = get_ms();
-		usleep(100);
+		usleep(10);
 	}
 }
 
-void	philo_think(t_act *act)
+void	philo_think(t_act *act, int id)
 {
 	act->sleeping = 0;
 	act->thinking = 1;
-	printf("%lld %d is thinking\n", get_ms(), act->philo_id);
+	mutex_printf(id, "is thinking", act->data);
 }
 
-void	philo_sleep(t_act *act, t_data *data)
+void	philo_sleep(t_act *act, t_data *data, int id)
 {
-	act->left_hand = 0;
-	act->right_hand = 0;
 	act->eating = 0;
 	act->sleeping = 1;
-	pthread_mutex_unlock(&(data->forks[act->philo_id - 1]));
-	if (act->philo_id == data->num_of_philo)
-		pthread_mutex_unlock(&(data->forks[0]));
-	else
-		pthread_mutex_unlock(&(data->forks[act->philo_id]));
-	printf("%lld %d is sleeping\n", get_ms(), act->philo_id);
+	mutex_printf(id, "is sleeping", data);
 	act_specified_time(data->time_to_sleep);
 }
 
-void	philo_eat(t_act *act, t_data *data)
+void	philo_eat(t_act *act, t_data *data, int id)
 {
 	act->eating = 1;
 	act->eating_count++;
-	printf("%lld %d is eating\n", get_ms(), act->philo_id);
+	mutex_printf(id, "is eating", data);
 	act_specified_time(data->time_to_eat);
+	act->hand_full = 0;
+	pthread_mutex_unlock(&(data->forks[id - 1]));
+	if (id == data->num_of_philo)
+		pthread_mutex_unlock(&(data->forks[0]));
+	else
+		pthread_mutex_unlock(&(data->forks[id]));
 }
 
-void	philo_take_fork(t_act *act, t_data *data)
+void	philo_take_fork(t_act *act, t_data *data, int id)
 {
-	act->right_hand = 1;
-	pthread_mutex_lock(&(data->forks[act->philo_id - 1]));
-	printf("%lld %d has taken a %d fork\n", get_ms(), act->philo_id, act->philo_id - 1);
-	act->left_hand = 1;
-	if (act->philo_id == data->num_of_philo)
+	act->hand_full = 1;
+	pthread_mutex_lock(&(data->forks[id - 1]));
+	mutex_printf(id, "has taken a fork", data);
+	if (id == data->num_of_philo)
 		pthread_mutex_lock(&(data->forks[0]));
 	else
-		pthread_mutex_lock(&(data->forks[act->philo_id]));
-	printf("%lld %d has taken a %d fork\n", get_ms(), act->philo_id, act->philo_id);
+		pthread_mutex_lock(&(data->forks[id]));
+	mutex_printf(id, "has taken a fork", data);
 }
 
 void*    philo_act(void *act_addr)
 {
 	t_act	*act;
 	t_data	*data;
+	int		id;
 
 	act = act_addr;
 	data = act->data;
-	if (act->philo_id % 2 == 0)
-		act_specified_time(200);
+	id = act->philo_id;
+	if (id % 2 == 0)
+		act_specified_time((data->time_to_eat) * 0.5);
+	philo_take_fork(act, data, id);
 	while (act != NULL)
 	{
 		if (act->thinking == 1)
 		{
 			act->thinking = 0;
-			philo_take_fork(act, data);
+			philo_take_fork(act, data, id);
 		}
-		else if (act->right_hand == 0 && act->left_hand == 0)
-			philo_take_fork(act, data);
-		else if (act->eating == 0)
+		else if (act->hand_full == 1)
 		{
-			philo_eat(act, data);
+			philo_eat(act, data, id);
 			if (act->eating_count == data->num_of_must_eat
 				&& data->num_of_must_eat > 0)
 				return (NULL);
 		}
 		else if (act->eating == 1)
-			philo_sleep(act, data);
+			philo_sleep(act, data, id);
 		else if (act->sleeping == 1)
-			philo_think(act);
+			philo_think(act, id);
 	}
 	return (NULL);
 }

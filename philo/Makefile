@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+         #
+#    By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/25 16:54:54 by tsuetsug          #+#    #+#              #
-#    Updated: 2022/03/27 12:18:11 by tsuetsug         ###   ########.fr        #
+#    Updated: 2022/03/30 09:19:19 by tsuetsug         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ OFF		= \033[0m
 
 NAME	= philo
 
-SRCS	= srcs/error.c srcs/ft_atoi.c srcs/philo_act.c srcs/philosophers.c \
-			srcs/data_init.c srcs/get_time.c
+SRCS	= srcs/error.c srcs/philo_act.c srcs/philosophers.c \
+			srcs/data_init.c srcs/get_time.c srcs/philo_utils.c
 
 OBJ		= *.o
 
