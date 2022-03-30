@@ -6,7 +6,7 @@
 /*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:34:02 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/30 12:16:50 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/31 07:22:46 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,12 @@ void	init_act(t_data *data)
 {
 	int	i;
 
-	data->act = malloc(sizeof(data->act) * data->num_of_philo);
+	data->act = malloc(sizeof(data->act[0]) * data->num_of_philo);
 	if (data->act == NULL)
 		ft_error("act is not allocated");
 	i = 0;
 	while (i < data->num_of_philo)
 	{
-		data->act[i] = malloc(sizeof(data->act[i]));
 		data->act[i].data = data;
 		data->act[i].philo_id = i + 1;
 		data->act[i].hand_full = 0;
