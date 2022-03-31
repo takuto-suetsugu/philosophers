@@ -6,7 +6,7 @@
 /*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:34:02 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/31 07:22:46 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:18:08 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ void	init_act(t_data *data)
 		data->act[i].eating_count = 0;
 		data->act[i].sleeping = 0;
 		data->act[i].thinking = 0;
+		data->act[i].finish = 0;
+		data->act[i].time_last_eat = 0;
+		if (pthread_mutex_init(&(data->act[i].finish_mutex), NULL))
+			ft_error("mutex is not init");
 		i++;
 	}
 }

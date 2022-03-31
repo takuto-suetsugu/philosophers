@@ -6,7 +6,7 @@
 /*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:36:21 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/30 10:52:45 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:58:10 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ typedef struct s_act {
 	int				eating_count;
 	int				sleeping;
 	int				thinking;
+	int				finish;
+	long long		time_last_eat;
 	struct s_data	*data;
+	pthread_mutex_t	finish_mutex;
 	pthread_t		thread;
 }				t_act;
 typedef struct s_data {
@@ -38,6 +41,7 @@ typedef struct s_data {
 	long			time_to_sleep;
 	long			num_of_must_eat;
 	long long		start_time;
+	int				all_finish;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write;
 	t_act			*act;
@@ -57,6 +61,11 @@ void	*philo_act(void *argv);
 void	data_init(int argc, char **argv, t_data *data);
 
 /* get_time.c */
+void	act_specified_time(int time_to_act, t_act *act);
 long long	get_ms(void);
+
+/* monitor.c */
+void*    monitor_eating_count(void *act_addr);
+void*    monitor_death(void *act_addr);
 
 #endif

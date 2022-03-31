@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 12:17:41 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/28 14:19:22 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/03/31 08:38:23 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+void	act_specified_time(int time_to_act, t_act *act)
+{
+	long long	act_time;
+	long long	start_time;
+	long long	current_time;
+
+	act_time = (long long)time_to_act;
+	start_time = get_ms();
+	current_time = get_ms();
+	while (act_time > current_time - start_time && act->finish == 0)
+	{
+		current_time = get_ms();
+		usleep(10);
+	}
+}
 
 long long	get_ms(void)
 {
