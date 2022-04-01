@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:32:19 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/31 15:19:20 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/01 08:30:21 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int	main(int argc, char **argv)
 
 	if (argc != 5 && argc != 6)
 		ft_error("argc is invalid");
-	if (argv[5] && argv[5] == 0)
-		return (0);
 	data = (t_data *)malloc(sizeof(t_data));
 	if (data == NULL)
 		ft_error("data is not allocated");

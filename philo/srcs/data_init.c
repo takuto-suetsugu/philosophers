@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:34:02 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/31 15:18:08 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/01 09:19:56 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	init_data(int argc, char **argv, t_data *data)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
+	if (argc == 6 && argv[5] == 0)
+		exit (0);
+	else if (argc == 6 && argv[5] != 0)
 		data->num_of_must_eat = ft_atoi(argv[5]);
 	else
 		data->num_of_must_eat = 0;
@@ -70,7 +72,7 @@ void	init_act(t_data *data)
 		data->act[i].eating_count = 0;
 		data->act[i].sleeping = 0;
 		data->act[i].thinking = 0;
-		data->act[i].finish = 0;
+		data->act[i].finish_eat = 0;
 		data->act[i].time_last_eat = 0;
 		if (pthread_mutex_init(&(data->act[i].finish_mutex), NULL))
 			ft_error("mutex is not init");

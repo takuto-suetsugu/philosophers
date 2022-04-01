@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:36:21 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/31 15:58:10 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/01 09:11:19 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_act {
 	int				eating_count;
 	int				sleeping;
 	int				thinking;
-	int				finish;
+	int				finish_eat;
 	long long		time_last_eat;
 	struct s_data	*data;
 	pthread_mutex_t	finish_mutex;

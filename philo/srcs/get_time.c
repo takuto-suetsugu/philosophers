@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 12:17:41 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/31 08:38:23 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/01 09:20:06 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	act_specified_time(int time_to_act, t_act *act)
 	act_time = (long long)time_to_act;
 	start_time = get_ms();
 	current_time = get_ms();
-	while (act_time > current_time - start_time && act->finish == 0)
+	while (act_time > current_time - start_time && act->finish_eat == 0)
 	{
 		current_time = get_ms();
 		usleep(10);

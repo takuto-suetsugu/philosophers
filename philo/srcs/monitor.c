@@ -3,52 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 07:58:04 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/31 15:59:53 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/01 09:21:45 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void*    monitor_eating_count(void *act_addr)
+void*	monitor_eating_count(void *act_addr)
 {
-	t_act	    *act;
-	t_data	    *data;
+	t_act	*act;
+	t_data	*data;
 
 	act = act_addr;
 	data = act->data;
-	while (act->finish)
+	while (act->finish_eat)
 	{
 		pthread_mutex_lock(&(act->finish_mutex));
 		if (data->num_of_must_eat == act->eating_count)
-			act->finish = 1;
+			act->finish_eat = 1;
 		pthread_mutex_unlock(&(act->finish_mutex));
 	}
 	return (NULL);
 }
 
-void*    monitor_death(void *act_addr)
+void*	monitor_death(void *act_addr)
 {
-	t_act	    *act;
-	t_data	    *data;
-	int		    id;
-    long long   now;
+	t_act		*act;
+	t_data		*data;
+	int			id;
+	long long	now;
 
 	act = act_addr;
 	data = act->data;
 	id = act->philo_id;
-	while (data->all_finish == 0)
+	while (act->finish_eat == 0)
 	{
-        now = get_ms();
-        if (now - act->time_last_eat > data->time_to_die)
-        {
-            pthread_mutex_lock(&(act->finish_mutex));
-            act->finish = 1;
-            mutex_printf(id, "died", data);
-            pthread_mutex_unlock(&(act->finish_mutex));
-        }
+		now = get_ms();
+		if (now - act->time_last_eat > data->time_to_die)
+		{
+			pthread_mutex_lock(&(act->finish_mutex));
+			act->finish_eat = 1;
+			mutex_printf(id, "died", data);
+			pthread_mutex_unlock(&(act->finish_mutex));
+		}
 	}
 	return (NULL);
 }
