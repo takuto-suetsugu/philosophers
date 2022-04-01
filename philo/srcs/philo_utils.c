@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:46:41 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/03/30 10:03:19 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/01 11:06:39 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ long	ft_atoi(const char *str)
 	return (res * minus);
 }
 
-void    mutex_printf(int id, char *action, t_data *data)
+void	mutex_printf(int id, char *action, t_data *data)
 {
 	pthread_mutex_lock(&(data->write));
 	printf("%lld %d %s\n", get_ms(), id, action);

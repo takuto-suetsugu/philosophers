@@ -6,27 +6,16 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:34:02 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/04/01 09:19:56 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/01 11:29:04 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	init_data(int argc, char **argv, t_data *data)
+void	init_data_mutex(t_data *data)
 {
-	int	i;
-
-	data->num_of_philo = ft_atoi(argv[1]);
-	data->num_of_forks = ft_atoi(argv[1]);
-	data->time_to_die = ft_atoi(argv[2]);
-	data->time_to_eat = ft_atoi(argv[3]);
-	data->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6 && argv[5] == 0)
-		exit (0);
-	else if (argc == 6 && argv[5] != 0)
-		data->num_of_must_eat = ft_atoi(argv[5]);
-	else
-		data->num_of_must_eat = 0;
+	int i;
+	
 	data->forks = malloc(sizeof(data->forks) * data->num_of_forks);
 	if (data->forks == NULL)
 		ft_error("forks is not allocated");
@@ -39,6 +28,24 @@ void	init_data(int argc, char **argv, t_data *data)
 	}
 	if (pthread_mutex_init(&(data->write), NULL))
 		ft_error("mutex is not write");
+	if (pthread_mutex_init(&(data->finish_mutex), NULL))
+		ft_error("mutex is not init");
+}
+
+void	import_data(int argc, char **argv, t_data *data)
+{
+	data->num_of_philo = ft_atoi(argv[1]);
+	data->num_of_forks = ft_atoi(argv[1]);
+	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
+	if (argc == 6 && argv[5] == 0)
+		exit (0);
+	else if (argc == 6 && argv[5] != 0)
+		data->num_of_must_eat = ft_atoi(argv[5]);
+	else
+		data->num_of_must_eat = 0;
+	data->die = 0;
 }
 
 void	validate_rules(t_data *data)
@@ -74,15 +81,14 @@ void	init_act(t_data *data)
 		data->act[i].thinking = 0;
 		data->act[i].finish_eat = 0;
 		data->act[i].time_last_eat = 0;
-		if (pthread_mutex_init(&(data->act[i].finish_mutex), NULL))
-			ft_error("mutex is not init");
 		i++;
 	}
 }
 
 void	data_init(int argc, char **argv, t_data *data)
 {
-	init_data(argc, argv, data);
+	import_data(argc, argv, data);
+	init_data_mutex(data);
 	validate_rules(data);
 	init_act(data);
 }

@@ -6,7 +6,7 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 15:41:29 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/04/01 09:48:15 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/01 11:06:21 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	philo_eat(t_act *act, t_data *data, int id)
 		pthread_mutex_unlock(&(data->forks[0]));
 	else
 		pthread_mutex_unlock(&(data->forks[id]));
+	act->hand_full = 0;
 	act->eating_count++;
 	if (act->eating_count == data->num_of_must_eat)
 		act->finish_eat = 1;
-	act->hand_full = 0;
 }
 
 void	philo_take_fork(t_act *act, t_data *data, int id)
@@ -49,7 +49,7 @@ void	philo_take_fork(t_act *act, t_data *data, int id)
 	if (act->thinking == 1)
 		act->thinking = 0;
 	pthread_mutex_lock(&(data->forks[id - 1]));
-	if (!act->finish_eat)
+	if (!act->finish_eat && !data->die)
 		mutex_printf(id, "has taken a fork", data);
 	if (data->num_of_philo == 1)
 		return ;
@@ -57,12 +57,12 @@ void	philo_take_fork(t_act *act, t_data *data, int id)
 		pthread_mutex_lock(&(data->forks[0]));
 	else
 		pthread_mutex_lock(&(data->forks[id]));
-	if (!act->finish_eat)
+	if (!act->finish_eat && !data->die)
 		mutex_printf(id, "has taken a fork", data);
 	act->hand_full = 1;
 }
 
-void*    philo_act(void *act_addr)
+void	*philo_act(void *act_addr)
 {
 	t_act	*act;
 	t_data	*data;
@@ -74,7 +74,7 @@ void*    philo_act(void *act_addr)
 	if (id % 2 == 0)
 		usleep((data->time_to_eat) * 0.5);
 	philo_take_fork(act, data, id);
-	while (act->finish_eat == 0)
+	while (!act->finish_eat && !data->die)
 	{
 		if (act->thinking == 1)
 			philo_take_fork(act, data, id);

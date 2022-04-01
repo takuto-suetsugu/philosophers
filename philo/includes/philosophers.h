@@ -6,7 +6,7 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:36:21 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/04/01 09:11:19 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/01 11:28:30 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_act {
 	int				finish_eat;
 	long long		time_last_eat;
 	struct s_data	*data;
-	pthread_mutex_t	finish_mutex;
 	pthread_t		thread;
 }				t_act;
 typedef struct s_data {
@@ -41,31 +40,32 @@ typedef struct s_data {
 	long			time_to_sleep;
 	long			num_of_must_eat;
 	long long		start_time;
-	int				all_finish;
+	int				die;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write;
+	pthread_mutex_t	finish_mutex;
 	t_act			*act;
 }				t_data;
 
 /* philo_utils.c */
-long	ft_atoi(const char *str);
-void    mutex_printf(int id, char *action, t_data *data);
+long		ft_atoi(const char *str);
+void		mutex_printf(int id, char *action, t_data *data);
 
 /* error.c */
-void	ft_error(char *error_message);
+void		ft_error(char *error_message);
 
 /* philo_act.c */
-void	*philo_act(void *argv);
+void		*philo_act(void *argv);
 
 /* data_init.c */
-void	data_init(int argc, char **argv, t_data *data);
+void		data_init(int argc, char **argv, t_data *data);
 
 /* get_time.c */
-void	act_specified_time(int time_to_act, t_act *act);
+void		act_specified_time(int time_to_act, t_act *act);
 long long	get_ms(void);
 
 /* monitor.c */
-void*    monitor_eating_count(void *act_addr);
-void*    monitor_death(void *act_addr);
+void		*monitor_eating_count(void *act_addr);
+void		*monitor_death(void *act_addr);
 
 #endif

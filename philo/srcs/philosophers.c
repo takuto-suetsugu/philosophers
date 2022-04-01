@@ -6,7 +6,7 @@
 /*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:32:19 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/04/01 08:30:21 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/01 11:29:41 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	end_thread(t_data *data)
 	while (i < data->num_of_philo)
 	{
 		pthread_mutex_destroy(&(data->forks[i]));
-		pthread_mutex_destroy(&(data->act[i].finish_mutex));
 		i++;
 	}
+	pthread_mutex_destroy(&(data->finish_mutex));
 	pthread_mutex_destroy(&(data->write));
 	free(data->act);
 	free(data->forks);
