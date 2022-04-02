@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 07:58:04 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/04/02 10:39:34 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/02 15:51:03 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	*monitor_eating_count(void *act_addr)
 	{
 		if (data->num_of_must_eat == act->eating_count)
 			act->finish_eat = 1;
-        else
-            act_specified_time(1, act);
+		else
+			act_specified_time(1, act);
 	}
 	return (NULL);
 }
@@ -49,8 +49,8 @@ void	*monitor_death(void *act_addr)
 			mutex_printf(id, "died", data);
 			pthread_mutex_unlock(&(data->finish_mutex));
 		}
-        else
-            act_specified_time(1, act);
+		else
+			act_specified_time(1, act);
 	}
 	return (NULL);
 }
