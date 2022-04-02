@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 16:32:19 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/04/01 11:29:41 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/01 17:16:14 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	start_thread(t_data *data, t_act *act)
 		if (pthread_create(&(data->act[i].thread), NULL, philo_act,
 				(void *)&(act[i])) != 0)
 			ft_error("pthread_create is failed");
-		pthread_create(&thread, NULL, monitor_death, &data->act[i]);
+		pthread_create(&thread, NULL, monitor_death, (void *)&(act[i]));
 		pthread_detach(thread);
+		if (data->num_of_must_eat != 0)
+		{
+			pthread_create(&thread, NULL, monitor_eating_count, (void *)&(act[i]));
+			pthread_detach(thread);
+		}
 		i++;
-	}
-	if (data->num_of_must_eat != 0)
-	{
-		pthread_create(&thread, NULL, monitor_eating_count, &data->act[i]);
-		pthread_detach(thread);
 	}
 }
 

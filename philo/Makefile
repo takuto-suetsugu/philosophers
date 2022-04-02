@@ -6,7 +6,7 @@
 #    By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/25 16:54:54 by tsuetsug          #+#    #+#              #
-#    Updated: 2022/03/31 15:16:00 by tsuetsug         ###   ########.fr        #
+#    Updated: 2022/04/02 10:18:21 by tsuetsug         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ RM		= rm -f
 
 all:	$(NAME)
 
-$(NAME): $(SRCS) $(0BJ)
+$(NAME): $(SRCS)
 	@echo "$(BWHITE)Compiling philo...$(OFF)"
 	$(CC) $(CC_FLAGS) -I $(HEADERS) -c $(SRCS)
 	$(CC) -o $(NAME) $(OBJ) $(CC_FLAGS)
@@ -46,7 +46,10 @@ fclean:	clean
 
 re:		fclean all
 
-debug:
+debug: $(SRCS)
 	$(CC) -g $(CC_FLAGS) -I$(HEADERS) $(SRCS) -o $(NAME)
+
+thread: $(SRCS)
+	$(CC) -g -fsanitize=thread $(CC_FLAGS) -I$(HEADERS) $(SRCS) -o $(NAME)
 
 .PHONY:		all clean fclean re debug

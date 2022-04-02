@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 07:58:04 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/04/01 11:31:09 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/02 10:39:34 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	*monitor_eating_count(void *act_addr)
 
 	act = act_addr;
 	data = act->data;
-	while (act->finish_eat)
+	while (!act->finish_eat && act->data->die)
 	{
-		pthread_mutex_lock(&(data->finish_mutex));
 		if (data->num_of_must_eat == act->eating_count)
 			act->finish_eat = 1;
-		pthread_mutex_unlock(&(data->finish_mutex));
+        else
+            act_specified_time(1, act);
 	}
 	return (NULL);
 }
@@ -44,11 +44,13 @@ void	*monitor_death(void *act_addr)
 		now = get_ms();
 		if (now - act->time_last_eat > data->time_to_die)
 		{
-			//pthread_mutex_lock(&(data->finish_mutex));
+			pthread_mutex_lock(&(data->finish_mutex));
 			data->die = 1;
 			mutex_printf(id, "died", data);
-			//pthread_mutex_unlock(&(data->finish_mutex));
+			pthread_mutex_unlock(&(data->finish_mutex));
 		}
+        else
+            act_specified_time(1, act);
 	}
 	return (NULL);
 }

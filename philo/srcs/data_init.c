@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsuetsug <tsuetsug@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:34:02 by tsuetsug          #+#    #+#             */
-/*   Updated: 2022/04/01 11:29:04 by tsuetsug         ###   ########.fr       */
+/*   Updated: 2022/04/01 16:18:24 by tsuetsug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	init_data_mutex(t_data *data)
 {
 	int i;
-	
+
 	data->forks = malloc(sizeof(data->forks) * data->num_of_forks);
 	if (data->forks == NULL)
 		ft_error("forks is not allocated");
